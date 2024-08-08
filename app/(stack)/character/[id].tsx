@@ -14,8 +14,8 @@ import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-// const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
-const API_KEY = "sk-1c";
+const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
+// const API_KEY = "sk-1c";
 
 const App = () => {
   const { id } = useLocalSearchParams();

@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from "react-native";
 import { Image } from "expo-image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Button from "../../components/base/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,74 +9,14 @@ import PopularCharacters from "../../components/Swipers/PopularCharacters";
 import { Link } from "expo-router";
 
 const index = () => {
-  const data = [
-    {
-      id: 1,
-      name: "Albert Einstein",
-      image:
-        "https://cdn.pixabay.com/photo/2024/06/06/08/40/ai-generated-8812169_1280.jpg",
-      shortDescription:
-        "Merhaba, ben Albert Einstein. Fizikçi, matematikçi ve filozofum...",
-      description:
-        "Merhaba, ben Albert Einstein. Fizikçi, matematikçi ve filozofum. 14 Mart 1879 tarihinde Almanya'nın Württemberg Krallığı'na bağlı Ulm şehrinde doğdum. 18 Nisan 1955 tarihinde ABD'nin New Jersey eyaletine bağlı Princeton şehrinde hayata gözlerimi yumdu. 20. yüzyılın en önemli fizikçilerinden biri olarak kabul edilirim. Beni tanımanızı çok isterim.",
-      properties: [
-        {
-          id: 1,
-          name: "Zeka",
-          value: 100,
-        },
-        {
-          id: 2,
-          name: "Kültür",
-          value: 80,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Leonardo Da Vinci",
-      image:
-        "https://cdn.pixabay.com/photo/2023/10/12/16/11/ai-generated-8311192_1280.png",
-      shortDescription:
-        "Merhaba, ben Leonardo Da Vinci. Ünlü İtalyan ressamım...",
-      description:
-        "Merhaba, ben Leonardo Da Vinci. Rönesans döneminin İtalyan ressamı, bilim insanı, matematikçi, mühendis, anatomist, mucit, heykeltıraş, mimar, müzisyen, yazar, filozof ve botanikçiyim. 15 Nisan 1452 tarihinde İtalya'nın Vinci şehrinde doğdum. 2 Mayıs 1519 tarihinde Fransa'nın Amboise şehrinde hayata gözlerimi yumdu. Beni tanımanızı çok isterim.",
-      properties: [
-        {
-          id: 1,
-          name: "Sanat",
-          value: 100,
-        },
-        {
-          id: 2,
-          name: "Kültür",
-          value: 80,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Thomas Edison",
-      image:
-        "https://cdn.pixabay.com/photo/2024/05/25/07/48/ai-generated-8786570_1280.jpg",
-      shortDescription:
-        "Merhaba, ben Thomas Edison. Amerikalı mucit ve iş adamıyım...",
-      description:
-        "Merhaba, ben Thomas Edison. Amerikalı mucit ve iş adamıyım. 11 Şubat 1847 tarihinde ABD'nin Ohio eyaletine bağlı Milan şehrinde doğdum. 18 Ekim 1931 tarihinde ABD'nin New Jersey eyaletine bağlı West Orange şehrinde hayata gözlerimi yumdu. Elektrik ampulünü icat ettiğim için tanınırım. Beni tanımanızı çok isterim.",
-      properties: [
-        {
-          id: 1,
-          name: "Zeka",
-          value: 100,
-        },
-        {
-          id: 2,
-          name: "Kültür",
-          value: 80,
-        },
-      ],
-    },
-  ];
+  const [data, setData] = useState<any[]>([]);
+  const charactersApi = process.env.EXPO_PUBLIC_API_URL + "/characters";
+  useEffect(() => {
+    fetch(charactersApi)
+      .then((response) => response.json())
+      .then((json) => setData(json));
+      console.log(data);
+  }, []);
 
   return (
     <SafeAreaView className="flex-1">
@@ -105,15 +45,17 @@ const index = () => {
           <Text className="text-white text-lg font-pmedium mb-4">
             Popüler Karakterler
           </Text>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <PopularCharacters key={item.id} data={item} />
-            )}
-          />
+          {data.length > 0 ? (
+            <FlatList
+              data={data}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <PopularCharacters data={item} />
+              )}
+            />
+          ) : null}
         </View>
       </View>
       <View>
