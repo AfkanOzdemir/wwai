@@ -14,8 +14,8 @@ import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
-// const API_KEY = "sk-1c";
+// const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
+const API_KEY = "sk-1c";
 
 const App = () => {
   const { id } = useLocalSearchParams();
@@ -145,17 +145,17 @@ const App = () => {
                   </View>
                 </View>
               </View>
-
             )
           )} />
 
         <View className="w-full h-16 px-2 flex-row items-center justify-around  ">
           <View className="flex-6 p-2 px-4 font-pmedium  border border-t border-white rounded-full">
             <TextInput
-              className="text-white"
-              placeholder={`Merhaba ${id}`}
-              value={chatMeet}
-              onChangeText={(text) => setChatMeet(text)}
+              placeholderTextColor={"#8d8d9d"}
+            className="text-white"
+            placeholder={`Merhaba ${id}`}
+            value={chatMeet}
+            onChangeText={(text) => setChatMeet(text)}
             />
           </View>
           <View className="flex-1 items-center justify-center ml-4">
