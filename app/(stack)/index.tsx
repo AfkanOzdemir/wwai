@@ -15,11 +15,10 @@ const index = () => {
     fetch(charactersApi)
       .then((response) => response.json())
       .then((json) => setData(json));
-    console.log(data);
   }, []);
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-background">
       <StatusBar style="light" />
       <View className="flex-1 bg-background p-4">
         <View className="flex-2 rounded-xl overflow-hidden relative">

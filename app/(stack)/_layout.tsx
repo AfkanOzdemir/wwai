@@ -9,7 +9,7 @@ const _layout = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name="welcome/index" />
       <Stack.Screen
         name="character/[id]"
         options={{
