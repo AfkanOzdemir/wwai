@@ -10,3 +10,6 @@ export type MessageHeaderProps = {
   chatFunc: Function;
   resetFunc: Function;
 };
+export type ContainerProps = {
+  children: React.ReactNode;
+};
