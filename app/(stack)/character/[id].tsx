@@ -200,6 +200,7 @@ const App = () => {
               value={chatMeet}
               onChangeText={(text) => setChatMeet(text)}
               editable={!loading}
+              placeholderTextColor={"#8d8d9d"}
             />
           </View>
           <View className="flex-1 items-center justify-center ml-4">
