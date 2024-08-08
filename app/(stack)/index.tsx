@@ -15,7 +15,7 @@ const index = () => {
     fetch(charactersApi)
       .then((response) => response.json())
       .then((json) => setData(json));
-      console.log(data);
+    console.log(data);
   }, []);
 
   return (
@@ -51,15 +51,18 @@ const index = () => {
               keyExtractor={(item) => item.id.toString()}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <PopularCharacters data={item} />
+              renderItem={({ item, index }) => (
+                <PopularCharacters key={index} data={item} />
               )}
             />
           ) : null}
         </View>
       </View>
       <View>
-        <Link href="allCharacters" className="p-2 bg-primary rounded-full items-center justify-center">
+        <Link
+          href="allCharacters"
+          className="p-2 bg-primary rounded-full items-center justify-center"
+        >
           <Text className="text-white font-pmedium">Tüm Karakterler</Text>
         </Link>
       </View>

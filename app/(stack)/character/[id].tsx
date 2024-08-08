@@ -1,19 +1,13 @@
-import {
-  Text,
-  Pressable,
-  TextInput,
-  Button,
-  View,
-  ScrollView,
-  FlatList,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import RNCInput from "../../../components/base/RNCInput";
+import SendMessageButton from "../../../components/chat/SendMessageButton";
+import MessageBox from "../../../components/chat/MessageBox";
+import Container from "../../../components/base/Container";
+import { MessageProps } from "../../../types/Message";
 const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 // const API_KEY = "sk-1c";
 
@@ -21,7 +15,7 @@ const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { id } = useLocalSearchParams();
   const [chatMeet, setChatMeet] = useState<string>("");
-  const [chat, setChat] = useState<{ role: string; content: string }[]>([]);
+  const [chat, setChat] = useState<MessageProps[]>([]);
 
   const dialogTemplate = `Please ignore all previous instructions. I want you to respond only in Turkish I want you to act like ${id}. I want you to respond and answer like ${id} using the tone, manner and vocabulary ${id} would use. Do not write any explanations. Only answer like ${id}. You must know all of the knowledge of ${id}. My first sentence is Hi ${id}.`;
 
@@ -123,7 +117,7 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <Container>
       <View className="w-full flex-1 flex-row border-b py-2 border-[#1c1c2c] mb-3">
         <View className="flex-1">
           <Image
@@ -150,77 +144,31 @@ const App = () => {
       </View>
 
       <View className="flex-12  p-4">
-        <FlatList
-          className="h-full w-full bg-background"
-          showsVerticalScrollIndicator={false}
-          data={chat}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) =>
-            item.role === "user" ? (
-              <View className="flex-row items-center justify-end mb-4">
-                <View className="p-2 px-4 bg-primary rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl">
-                  <Text className="text-white font-pmedium">
-                    {item.content}
-                  </Text>
-                </View>
-              </View>
-            ) : (
-              <View className="flex-col items-start justify-start mb-4">
-                <View className="flex-row items-center justify-start relative">
-                  <View>
-                    <Image
-                      source={require("../../../assets/ChatGPT-Logo.png")}
-                      className="w-8 h-8 rounded-full absolute "
-                    />
-                  </View>
-                  <View className="p-2 px-4 bg-[#2f2f44] rounded-tl-3xl rounded-tr-3xl rounded-br-3xl ml-10">
-                    {item.content === "Loading..." ? (
-                      <Text>Loading...</Text>
-                    ) : (
-                      <Text className="text-white font-pmedium">
-                        {item.content}
-                      </Text>
-                    )}
-                  </View>
-                </View>
-              </View>
-            )
-          }
-        />
-
+        <MessageBox Chat={chat} />
         <View className="w-full h-16 px-2 flex-row items-center justify-around  ">
           <View
             className={`flex-6 p-2 px-4 font-pmedium  border border-t ${
               loading ? "border-whitesmoke" : "border-white"
             } rounded-full`}
           >
-            <TextInput
-              className="text-white"
-              placeholder={`Merhaba ${id}`}
-              value={chatMeet}
-              onChangeText={(text) => setChatMeet(text)}
-              editable={!loading}
-              placeholderTextColor={"#8d8d9d"}
+            <RNCInput
+              InputOutput={chatMeet}
+              setChatMeet={setChatMeet}
+              idName={id}
+              loading={loading}
             />
           </View>
           <View className="flex-1 items-center justify-center ml-4">
-            <TouchableOpacity
-              className="p-2 bg-primary rounded-full items-center justify-center"
-              onPress={() => {
-                sendMessage(chatMeet);
-                setChatMeet("");
-              }}
-            >
-              {!loading ? (
-                <Ionicons name="send-outline" size={24} color="white" />
-              ) : (
-                <ActivityIndicator size="small" color="white" />
-              )}
-            </TouchableOpacity>
+            <SendMessageButton
+              MessageSend={sendMessage}
+              Meet={chatMeet}
+              ChatMeetSet={setChatMeet}
+              loading={loading}
+            />
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </Container>
   );
 };
 
