@@ -5,3 +5,8 @@ export type SendMessageButtonProps = {
   ChatMeetSet: Function;
   loading: boolean;
 };
+export type MessageHeaderProps = {
+  CharacterID: string[] | string;
+  chatFunc: Function;
+  resetFunc: Function;
+};

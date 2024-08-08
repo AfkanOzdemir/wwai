@@ -21,7 +21,7 @@ const PopularCharacters = ({
   return (
     <Link
       href={{
-        pathname: "character/" + data.name,
+        pathname: "chat/" + data.name,
       }}
       className="w-52 h-72 rounded-xl mr-3 relative"
     >
