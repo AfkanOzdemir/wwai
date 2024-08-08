@@ -23,6 +23,7 @@ module.exports = {
       colors: {
         background: "#161622",
         primary : "#6141E1",
+        secondary: "#1f1f30",
       },
       flex: {
         2: "2 2 0%",
