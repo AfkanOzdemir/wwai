@@ -25,7 +25,7 @@ const MessageBubble = ({ dataItem }: { dataItem: MessageProps }) => {
             <Text>Yazıyor...</Text>
           ) : (
             <Text className="text-white font-pmedium">
-              <TypeWriter typing={2}>{dataItem.content}</TypeWriter>
+              <TypeWriter typing={1}>{dataItem.content}</TypeWriter>
             </Text>
           )}
         </View>
