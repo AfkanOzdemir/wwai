@@ -1,7 +1,9 @@
 import { Slot, SplashScreen } from "expo-router";
 import { Text } from "react-native";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Context from "../context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,7 +23,7 @@ const _layout = () => {
       const value = await AsyncStorage.getItem('isWelcomeVisited');
       if (value !== "true") {
         SplashScreen.preventAutoHideAsync();
-      } else{
+      } else {
         SplashScreen.hideAsync();
       }
     } catch (e) {
@@ -39,7 +41,10 @@ const _layout = () => {
     return null;
   }
 
-  return <Slot/>;
+  return (
+    <Context.Provider value={{ apiData: apiData, setApiData: setApiData }}>
+      <Slot />
+    </Context.Provider>)
 
 };
 
