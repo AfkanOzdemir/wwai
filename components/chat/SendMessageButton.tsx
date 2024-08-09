@@ -1,8 +1,8 @@
 import { TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import Loading from "../base/Loading";
 import { SendMessageButtonProps } from "../../types/Message";
+import Loading from "../base/Loading";
 
 const SendMessageButton = ({
   MessageSend,

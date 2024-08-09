@@ -2,7 +2,15 @@ import { FlatList } from "react-native";
 import React from "react";
 import MessageBubble from "../base/MessageBubble";
 
-const MessageBox = ({ Chat, CharacterImage }: { Chat: any, CharacterImage: any }) => {
+const MessageBox = ({
+  Chat,
+  CharacterImage,
+  Loading,
+}: {
+  Chat: any;
+  CharacterImage: any;
+  Loading: Function;
+}) => {
   return (
     <FlatList
       className="h-full w-full bg-background"
@@ -12,7 +20,12 @@ const MessageBox = ({ Chat, CharacterImage }: { Chat: any, CharacterImage: any }
       renderItem={({ item, index }) => (
         <MessageBubble
           key={index}
-          dataItem={{ role: item.role, content: item.content, image: CharacterImage }}
+          Loading={Loading}
+          dataItem={{
+            role: item.role,
+            content: item.content,
+            image: CharacterImage,
+          }}
         />
       )}
     />

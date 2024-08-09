@@ -19,7 +19,6 @@ const Chat = () => {
 
   const _init = async () => {
     try {
-      setLoading(true);
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -48,7 +47,6 @@ const Chat = () => {
           ...prevChat,
           { role: message.message.role, content: message.message.content },
         ]);
-        setLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -96,17 +94,14 @@ const Chat = () => {
         const data = await response.json();
         const message = data.choices[0];
         if (message) {
-          setTimeout(() => {
-            setChat((prevChat) => {
-              prevChat.pop();
-              return prevChat;
-            });
-            setChat((prevChat) => [
-              ...prevChat,
-              { role: message.message.role, content: message.message.content },
-            ]);
-            setLoading(false);
-          }, 2000);
+          setChat((prevChat) => {
+            prevChat.pop();
+            return prevChat;
+          });
+          setChat((prevChat) => [
+            ...prevChat,
+            { role: message.message.role, content: message.message.content },
+          ]);
         }
       }
     } catch (e) {
@@ -124,7 +119,11 @@ const Chat = () => {
         resetFunc={_init}
       />
       <View className="flex-12  p-4">
-        <MessageBox Chat={chat} CharacterImage={characterImage} />
+        <MessageBox
+          Chat={chat}
+          Loading={setLoading}
+          CharacterImage={characterImage}
+        />
         <View className="w-full h-16 px-2 flex-row items-center justify-around  ">
           <View
             className={`flex-6 p-2 px-4 font-pmedium  border border-t ${
