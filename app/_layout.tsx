@@ -2,6 +2,7 @@ import { Slot, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import Context from "../context";
+import { ToastProvider } from "react-native-toast-notifications";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +29,9 @@ const _layout = () => {
 
   return (
     <Context.Provider value={{ apiData: apiData, setApiData: setApiData }}>
-      <Slot />
+      <ToastProvider dangerColor="red">
+        <Slot />
+      </ToastProvider>
     </Context.Provider>
   );
 };

@@ -12,7 +12,7 @@ const SendMessageButton = ({
 }: SendMessageButtonProps) => {
   return (
     <TouchableOpacity
-      className="p-2 bg-primary rounded-full items-center justify-center"
+      className=" p-2 bg-primary justify-center items-center  rounded-full "
       onPress={() => {
         MessageSend(Meet);
         ChatMeetSet("");

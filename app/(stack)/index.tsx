@@ -1,22 +1,29 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { Image } from "expo-image";
-import React, { useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Button from "../../components/base/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import PopularCharacters from "../../components/Swipers/PopularCharacters";
-import { Link, router } from "expo-router";
 import Context from "../../context";
 import { ContextApiProps } from "../../types/Message";
+import Loading from "../../components/base/Loading";
+import { useToast } from "react-native-toast-notifications";
 
 const index = () => {
+  const toast = useToast();
   const { apiData, setApiData } = useContext<ContextApiProps>(Context);
   const charactersApi = process.env.EXPO_PUBLIC_API_URL + "/characters";
   useEffect(() => {
     fetch(charactersApi)
       .then((response) => response.json())
-      .then((json) => setApiData(json.data));
+      .then((json) => setApiData(json.data))
+      .catch((e: Error) => {
+        toast.show("Lütfen Bağlantınızı kontrol ediniz", {
+          type: "danger",
+        });
+      });
   }, []);
 
   return (
@@ -46,17 +53,21 @@ const index = () => {
           <Text className="text-white text-lg font-pmedium mb-4">
             Popüler Karakterler
           </Text>
-          {apiData?.length > 0 ? (
+          {apiData && apiData?.length > 0 ? (
             <FlatList
               data={apiData}
               horizontal={true}
               keyExtractor={(item) => item.id.toString()}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item, index }) => (
-                <PopularCharacters key={index} data={item} />
+                <Suspense fallback={<Loading></Loading>}>
+                  <PopularCharacters key={index} data={item} />
+                </Suspense>
               )}
             />
-          ) : null}
+          ) : (
+            <Loading />
+          )}
         </View>
       </View>
     </SafeAreaView>

@@ -1,8 +1,12 @@
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import React from "react";
 
 const Loading = () => {
-  return <ActivityIndicator size="small" color="white" />;
+  return (
+    <View className="justify-center items-center ">
+      <ActivityIndicator size="small" color="white" />
+    </View>
+  );
 };
 
 export default Loading;
