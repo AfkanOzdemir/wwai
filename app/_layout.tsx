@@ -1,6 +1,7 @@
 import { Slot, SplashScreen } from "expo-router";
 import { Text } from "react-native";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
@@ -15,6 +16,19 @@ const _layout = () => {
     "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
   });
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('isWelcomeVisited');
+      if (value !== "true") {
+        SplashScreen.preventAutoHideAsync();
+      } else{
+        SplashScreen.hideAsync();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -25,7 +39,7 @@ const _layout = () => {
     return null;
   }
 
-  return <Slot/>;
+  return <Slot />;
 
 };
 

@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Tag from "../../../components/base/Tag";
 import ChatHistoryCard from "../../../components/character/ChatHistoryCard";
 import ChatButton from "../../../components/character/ChatButton";
-import ContentBox from "../../../components/character/ContentBox";
+import ContentBox from "../../../components/base/ContentBox";
 import ProfileSection from "../../../components/character/ProfileSection";
 
 const Characters = () => {
