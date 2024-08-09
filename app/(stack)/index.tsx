@@ -1,20 +1,22 @@
 import { View, Text, FlatList } from "react-native";
 import { Image } from "expo-image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Button from "../../components/base/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import PopularCharacters from "../../components/Swipers/PopularCharacters";
 import { Link } from "expo-router";
+import Context from "../../context";
+import { ContextApiProps } from "../../types/Message";
 
 const index = () => {
-  const [data, setData] = useState<any[]>([]);
+  const { apiData, setApiData } = useContext<ContextApiProps>(Context);
   const charactersApi = process.env.EXPO_PUBLIC_API_URL + "/characters";
   useEffect(() => {
     fetch(charactersApi)
       .then((response) => response.json())
-      .then((json) => setData(json));
+      .then((json) => setApiData(json.data));
   }, []);
 
   return (
@@ -44,11 +46,11 @@ const index = () => {
           <Text className="text-white text-lg font-pmedium mb-4">
             Popüler Karakterler
           </Text>
-          {data.length > 0 ? (
+          {apiData?.length > 0 ? (
             <FlatList
-              data={data}
-              keyExtractor={(item) => item.id.toString()}
+              data={apiData}
               horizontal={true}
+              keyExtractor={(item) => item.id.toString()}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item, index }) => (
                 <PopularCharacters key={index} data={item} />

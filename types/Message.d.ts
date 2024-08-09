@@ -1,8 +1,10 @@
-export type MessageProps = {
+export interface MessageProps {
   role: string;
   content: string;
+}
+export interface MessageBubbleProps extends MessageProps {
   image: string[] | string;
-};
+}
 export type SendMessageButtonProps = {
   MessageSend: Function;
   Meet: string;
@@ -29,4 +31,8 @@ export type AllCharacterCardProps = {
     image: string;
     shortDescription: string;
   };
+};
+type ContextApiProps = {
+  apiData: CharacterProps[];
+  setApiData: Function;
 };
