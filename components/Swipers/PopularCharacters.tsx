@@ -4,15 +4,11 @@ import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 
-const PopularCharacters = ({
-  data,
-}: {
-  data: any
-}) => {
+const PopularCharacters = ({ data }: { data: CharacterProps }) => {
   return (
     <Link
       href={{
-        pathname: '/chat/[characterId]',
+        pathname: "/chat/[characterId]",
         params: { characterId: data.name, characterImage: data.image },
       }}
       className="w-52 h-72 rounded-xl mr-3 relative"
@@ -23,7 +19,7 @@ const PopularCharacters = ({
           className="w-full h-full absolute bottom-0 z-10 p-2"
         >
           <View className="flex-row space-x-2">
-            {data.properties.map((property: any, index:number) => (
+            {data.properties.map((property: any, index: number) => (
               <View key={index} className="px-3 py-2 bg-[#1e1e1f] rounded-full">
                 <Text className="text-white text-sm font-pmedium mr-1 ">
                   {property.name}

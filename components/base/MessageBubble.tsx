@@ -2,9 +2,9 @@ import { View, Text } from "react-native";
 import React from "react";
 import TypeWriter from "react-native-typewriter";
 import { Image } from "expo-image";
-import { MessageProps } from "../../types/Message";
+import { MessageBubbleProps } from "../../types/Message";
 
-const MessageBubble = ({ dataItem }: { dataItem: MessageProps }) => {
+const MessageBubble = ({ dataItem }: { dataItem: MessageBubbleProps }) => {
   return dataItem.role === "user" ? (
     <View className="flex-row items-center justify-end mb-4">
       <View className="p-2 px-4 bg-primary rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl">
@@ -22,7 +22,7 @@ const MessageBubble = ({ dataItem }: { dataItem: MessageProps }) => {
         </View>
         <View className="p-2 px-4 bg-secondary rounded-tl-3xl rounded-tr-3xl rounded-br-3xl ml-10">
           {dataItem.content === "Loading..." ? (
-            <Text>Yazıyor...</Text>
+            <Text className="text-slate-400">Yazıyor...</Text>
           ) : (
             <Text className="text-white font-pmedium">
               <TypeWriter typing={1}>{dataItem.content}</TypeWriter>
