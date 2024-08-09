@@ -31,11 +31,7 @@ const Characters = () => {
           <View className="rounded-xl bg-secondary p-2">
             <ContentBox content="Açıklama">
               <Text className=" font-plight text-slate-300 text-sm">
-                Merhaba, ben Muhammad Ali. Efsane boksörüm. 17 Ocak 1942
-                tarihinde ABD'nin Kentucky eyaletine bağlı Louisville şehrinde
-                doğdum. 3 Haziran 2016 tarihinde ABD'nin Arizona eyaletine bağlı
-                Scottsdale şehrinde hayata gözlerimi yumdu. Beni tanımanızı çok
-                isterim.
+                {profileCharacter?.description}
               </Text>
             </ContentBox>
             <ContentBox content="Kategoriler">
@@ -44,9 +40,9 @@ const Characters = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                   className="flex-row space-x-2"
-                  data={Array(4).fill(0)}
+                  data={profileCharacter?.category}
                   keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => <Tag text={"Kategori"} />}
+                  renderItem={({ item }) => <Tag text={item.name} />}
                 />
               </View>
             </ContentBox>
@@ -56,13 +52,13 @@ const Characters = () => {
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                   className="flex-row space-x-2"
-                  data={Array(7).fill(0)}
+                  data={profileCharacter?.properties}
                   keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => <Tag text={"Özellik"} />}
+                  renderItem={({ item }) => <Tag text={item.name} />}
                 />
               </View>
             </ContentBox>
-            <ContentBox content="Geçmiş Sohbetler">
+            {/* <ContentBox content="Geçmiş Sohbetler">
               <View className="flex-col space-y-3">
                 {Array(3)
                   .fill(0)
@@ -75,11 +71,11 @@ const Characters = () => {
                     />
                   ))}
               </View>
-            </ContentBox>
+            </ContentBox> */}
           </View>
         </View>
       </ScrollView>
-      <ChatButton />
+      <ChatButton profileCharacter={profileCharacter} />
     </SafeAreaView>
   );
 };

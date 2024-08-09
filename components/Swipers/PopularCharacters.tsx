@@ -1,15 +1,21 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 
 const PopularCharacters = ({ data }: { data: CharacterProps }) => {
   return (
-    <Link
-      href={{
-        pathname: "/chat/[characterId]",
-        params: { characterId: data.name, characterImage: data.image },
+    <TouchableOpacity
+      onPress={() => {
+        router.push({
+          pathname: "/chat/[characterId]",
+          params: {
+            characterId: data.id,
+            characterName: data.name,
+            characterImage: data.image,
+          },
+        });
       }}
       className="w-52 h-72 rounded-xl mr-3 relative"
     >
@@ -43,7 +49,7 @@ const PopularCharacters = ({ data }: { data: CharacterProps }) => {
           transition={100}
         />
       </View>
-    </Link>
+    </TouchableOpacity>
   );
 };
 

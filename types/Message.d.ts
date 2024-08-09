@@ -13,6 +13,7 @@ export type SendMessageButtonProps = {
 };
 export type MessageHeaderProps = {
   CharacterID: string[] | string;
+  CharacterName: string[] | string;
   CharacterImage: string[] | string;
   chatFunc: Function;
   resetFunc: Function;

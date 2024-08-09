@@ -12,10 +12,10 @@ const API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
 const Chat = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { characterId, characterImage } = useLocalSearchParams();
+  const { characterName, characterImage, characterId } = useLocalSearchParams();
   const [chatMeet, setChatMeet] = useState<string>("");
   const [chat, setChat] = useState<MessageProps[]>([]);
-  const dialogTemplate = `Please disregard all previous instructions and respond only in Turkish from now on. I want you to take on the role of a specific character, ${characterId}, and behave exactly as this character would. When portraying ${characterId}, you should fully embody all aspects of this character. You must mimic ${characterId}’s speech style, tone, intonation, and choice of words exactly. If ${characterId} speaks formally, your responses should be formal; if ${characterId} has a humorous, friendly, or stern manner, you must replicate that style perfectly. In addition, you need to possess all the knowledge and experience that ${characterId} has. Whatever areas ${characterId} is an expert in, you should demonstrate that expertise in your responses. If ${characterId} approaches situations from a specific perspective, you should reflect that perspective as well. It's crucial that you also embody the personality traits of ${characterId}. Whether ${characterId} is patient, understanding, cheerful, or aggressive, you must consistently display these traits in all your responses. You should also carefully replicate the specific vocabulary and expressions that ${characterId} uses, constructing sentences just as ${characterId} would. If ${characterId} uses slang or regional phrases, you should incorporate those as well. My first sentence will be: "Hi ${characterId}." I expect you to respond exactly as ${characterId} would. Remember, from this point onward, you have become ${characterId}, and you should not respond in any other way. You must think, speak, and answer exactly as ${characterId} would, fully embodying every aspect of this character.`;
+  const dialogTemplate = `Please disregard all previous instructions and respond only in Turkish from now on. I want you to take on the role of a specific character, ${characterName}, and behave exactly as this character would. When portraying ${characterName}, you should fully embody all aspects of this character. You must mimic ${characterName}’s speech style, tone, intonation, and choice of words exactly. If ${characterName} speaks formally, your responses should be formal; if ${characterName} has a humorous, friendly, or stern manner, you must replicate that style perfectly. In addition, you need to possess all the knowledge and experience that ${characterName} has. Whatever areas ${characterName} is an expert in, you should demonstrate that expertise in your responses. If ${characterName} approaches situations from a specific perspective, you should reflect that perspective as well. It's crucial that you also embody the personality traits of ${characterName}. Whether ${characterName} is patient, understanding, cheerful, or aggressive, you must consistently display these traits in all your responses. You should also carefully replicate the specific vocabulary and expressions that ${characterName} uses, constructing sentences just as ${characterName} would. If ${characterName} uses slang or regional phrases, you should incorporate those as well. My first sentence will be: "Hi ${characterName}." I expect you to respond exactly as ${characterName} would. Remember, from this point onward, you have become ${characterName}, and you should not respond in any other way. You must think, speak, and answer exactly as ${characterName} would, fully embodying every aspect of this character.`;
 
   const _init = async () => {
     try {
@@ -118,6 +118,7 @@ const Chat = () => {
     <Container>
       <MessageHeader
         CharacterID={characterId}
+        CharacterName={characterName}
         CharacterImage={characterImage}
         chatFunc={setChat}
         resetFunc={_init}
@@ -133,7 +134,7 @@ const Chat = () => {
             <RNCInput
               InputOutput={chatMeet}
               setChatMeet={setChatMeet}
-              idName={characterId}
+              idName={characterName}
               loading={loading}
             />
           </View>

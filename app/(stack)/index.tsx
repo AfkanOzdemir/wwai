@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import { Image } from "expo-image";
 import React, { useContext, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -6,7 +6,7 @@ import Button from "../../components/base/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import PopularCharacters from "../../components/Swipers/PopularCharacters";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import Context from "../../context";
 import { ContextApiProps } from "../../types/Message";
 
@@ -36,9 +36,9 @@ const index = () => {
           >
             <View className="w-full h-full flex-col justify-end items-center z-10 p-5 ">
               <Text className="w-full text-white text-lg font-pmedium mb-4 text-center">
-                Hemen Kendi Karakterini Oluştur ve Sohbete Başla!
+                Hemen Kendi Karakterini Seç ve Sohbete Başla!
               </Text>
-              <Button text="Karakter Oluştur" link="chat" />
+              <Button text="Karakter Seç" link="allCharacters" />
             </View>
           </LinearGradient>
         </View>
@@ -58,14 +58,6 @@ const index = () => {
             />
           ) : null}
         </View>
-      </View>
-      <View>
-        <Link
-          href="allCharacters"
-          className="p-2 bg-primary rounded-full items-center justify-center"
-        >
-          <Text className="text-white font-pmedium">Tüm Karakterler</Text>
-        </Link>
       </View>
     </SafeAreaView>
   );
